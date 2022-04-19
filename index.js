@@ -1,9 +1,9 @@
-var inquirer = require('inquirer');
-var binance = require('node-binance-api')().options({});
-var colors = require('colors');
+const inquirer = require('inquirer');
+const binance = require('node-binance-api')().options({});
+const colors = require('colors');
 
 async function main(){
-    var { currency, symbol } = await inquirer.prompt([
+    let { currency, symbol } = await inquirer.prompt([
         {
             type: 'input',
             name: 'symbol',
@@ -18,8 +18,9 @@ async function main(){
         }
     ]);
 
-    var pair = `${symbol}${currency}`;
-    var lastPrice = 0;
+    let pair = `${symbol}${currency}`;
+    let lastPrice = 0;
+
     // use node-binance-api spot websocket api and print live price
     binance.websockets.trades([pair], (trades) => {
         let {e:eventType, E:eventTime, s:symbol, p:price, q:quantity, m:maker, a:tradeId} = trades;
@@ -36,7 +37,6 @@ async function main(){
 
       });
 
-    console.log(symbol);
 }
 
 main().catch(err => {
