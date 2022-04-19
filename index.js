@@ -39,4 +39,6 @@ async function main(){
     console.log(symbol);
 }
 
-main();
+main().catch(err => {
+    console.error(colors.red(err));
+});
